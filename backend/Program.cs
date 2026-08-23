@@ -14,11 +14,19 @@ namespace AngularApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddControllers();
-
-
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFront", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200") // Replace with your front-end URL
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
 
 
             var app = builder.Build();
+            app.UseCors("AllowFront");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -26,30 +34,10 @@ namespace AngularApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+           
             app.UseHttpsRedirection();
             app.MapControllers();
             app.UseAuthorization();
-
-            //var summaries = new[]
-            //{
-            //    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-            //};
-
-            //app.MapGet("/weatherforecast", (HttpContext httpContext) =>
-            //{
-            //    var forecast = Enumerable.Range(1, 5).Select(index =>
-            //        new WeatherForecast
-            //        {
-            //            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            //            TemperatureC = Random.Shared.Next(-20, 55),
-            //            Summary = summaries[Random.Shared.Next(summaries.Length)]
-            //        })
-            //        .ToArray();
-            //    return forecast;
-            //})
-            //.WithName("GetWeatherForecast")
-            //.WithOpenApi();
 
 
             app.Run();
