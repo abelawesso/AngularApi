@@ -11,4 +11,9 @@ export class BookService {
   private  apiUrl : string = 'https://localhost:7025';
 
   constructor(private http: HttpClient) { }
+
+  getBooks(): Observable<Book[]>
+    { 
+      return this.http.get<Book[]>(this.apiUrl+'/api/books');
+    }
 }
