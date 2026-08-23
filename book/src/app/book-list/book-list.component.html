@@ -1,0 +1,17 @@
+<p>book-list works!</p>
+
+<p>Our book informations are :</p>
+<ul>
+  <li><strong>Title:</strong> {{ book.title }}</li>
+  <li><strong>Author:</strong> {{ book.author }}</li>
+  <li><strong>Description:</strong> {{ book.description }}</li>
+  <li><strong>Created At:</strong> {{ book.createdAt }}</li>
+</ul>
+
+<p>Here now we'll have a list of all our books:<p>
+    <ul *ngFor="let item of bookList">
+        <li><strong>Title : {{item.title}} </strong></li>
+        <li><strong>Author : {{item.author}} </strong></li>
+        <li><strong>Description : {{item.description}} </strong></li>
+        <li><strong>Created At : {{item.createdAt}} </strong></li>
+    </ul>
